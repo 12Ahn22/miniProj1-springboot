@@ -43,7 +43,7 @@ dependencies {
 	implementation 'org.mariadb.jdbc:mariadb-java-client:3.3.3'
 	
 	// MyBatis
-	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3'
+	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.2'
 	
 	// Valid Check
 	implementation 'org.hibernate.validator:hibernate-validator:8.0.1.Final'

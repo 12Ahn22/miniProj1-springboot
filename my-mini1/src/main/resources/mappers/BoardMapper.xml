@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.mini.proj.board.mapper.BoardMapper">
+
+    <sql id="search">
+        <where>
+            <if test="searchKey != null and searchKey != ''">
+                title like concat('%', #{searchKey}, '%')
+            </if>
+        </where>
+    </sql>
+
+    <select id="getList" resultType="BoardVO">
+		select tb.bno, tb.title, tm.name author, tb.content, 
+			tb.created_at createdAt, tb.view_count viewCount
+		from tb_boards tb left join tb_members tm on tb.author = tm.id
+		<include refid="search"/>
+		order by bno desc limit #{skip}, #{size}
+    </select>
+    
+    <select id="getTotalCount">
+		select 
+			count(*)  
+		from tb_boards tb 
+		<include refid="search"/>
+    </select>
+    
+    <select id="view" resultType="BoardVO">
+		select bno, title, author, content, created_at createdAt ,view_count viewCount
+		from tb_boards where bno = #{bno}
+    </select>
+    
+     <update id="update">
+		update tb_boards set title = #{title}, content = #{content} where bno = #{bno}
+    </update>
+    
+    <delete id="delete">
+    	delete from tb_boards where bno = #{bno}
+    </delete>
+    
+    <insert id="insert">
+    	insert into tb_boards (title, content, author) values(#{title},#{content}, 'ADMIN')
+    </insert>
+</mapper>
