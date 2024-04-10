@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.mini.proj.member.mapper.MemberMapper">
+
+    <sql id="search">
+        <where>
+            <if test="searchKey != null and searchKey != ''">
+               id like concat('%', #{searchKey}, '%')
+            </if>
+        </where>
+    </sql>
+
+    <select id="getList" resultType="MemberVO">
+		select id, name, address, phone, gender from tb_members
+		<include refid="search"/>
+		limit #{skip}, #{size}
+    </select>
+    
+    <select id="checkDuplicateId" resultType="MemberVO">
+    	select id from tb_members where id=#{id} and password = #{password}
+    </select>
+    
+    <select id="getTotalCount">
+		select 
+			count(*)  
+		from tb_members 
+		<include refid="search"/>
+    </select>
+    
+    <select id="view" resultType="MemberVO">
+		select id, name, address, phone, gender from tb_members where id = #{id}
+    </select>
+    
+    <select id="login" resultType="MemberVO">
+		select id, name, address, phone, gender, password from tb_members where id = #{id}
+    </select>
+    
+    <select id="getMemberHobbies" resultType="HobbyVO">
+    	select id, hobby 
+    	from tb_member_hobbies tmh 
+    	join tb_hobbies th on tmh.hobby_id = th.id where member_id = #{id}
+    </select>
+    
+     <update id="update">
+		update tb_members set name = #{name}, password = #{password}, address = #{address}, phone = #{phone} 
+		where id = #{id}
+    </update>
+    
+    <delete id="delete">
+    	delete from tb_members where id = #{id}
+    </delete>
+    
+    <insert id="insert">
+    	insert into tb_members (id, name, password, address, phone, gender) 
+    	values(#{id},#{name},#{password},#{address},#{phone},#{gender})
+    </insert>
+</mapper>

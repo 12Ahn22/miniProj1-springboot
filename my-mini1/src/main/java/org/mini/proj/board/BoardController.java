@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -56,8 +57,27 @@ public class BoardController {
 
 		return "board/boardView";
 	}
+	
+	@GetMapping("jsonView")
+	@ResponseBody
+	public Map<String,Object> jsonView(Model model, BoardVO boardVO) {
+		log.info("게시판 상세 목록 - jsonView");
+		Map<String, Object> map = new HashMap<String, Object>();
+		// 게시글 정보
+		BoardVO board = boardService.view(boardVO);
 
-	@RequestMapping("delete")
+		if(board != null) { // 성공
+			map.put("status", 204);
+			map.put("board", board);
+		} else {
+			map.put("status", 404);
+			map.put("statusMessage", "게시글 삭제에 실패하였습니다");
+		}
+		
+		return map;
+	}
+
+	@PostMapping("delete")
 	@ResponseBody
 	public Map<String,Object> delete(Model model, @RequestBody BoardVO boardVO) {
 		log.info("게시물 삭제");
@@ -74,7 +94,7 @@ public class BoardController {
 		return map;
 	}
 
-	@RequestMapping("updateForm")
+	@GetMapping("updateForm")
 	public String updateForm(Model model, BoardVO boardVO) {
 		// 게시글 정보
 		BoardVO board = boardService.fetchUpdateFormData(boardVO);
@@ -82,7 +102,7 @@ public class BoardController {
 		return "board/boardUpdate";
 	}
 
-	@RequestMapping("update")
+	@PostMapping("update")
 	@ResponseBody
 	public Map<String, Object> update(Model model, @RequestBody BoardVO boardVO) {
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -98,12 +118,12 @@ public class BoardController {
 		return map;
 	}
 
-	@RequestMapping("insertForm")
+	@GetMapping("insertForm")
 	public String insertForm() {
 		return "board/boardInsert";
 	}
 
-	@RequestMapping("insert")
+	@PostMapping("insert")
 	@ResponseBody
 	public Map<String, Object> insert(Model model, @RequestBody BoardVO boardVO) {
 		Map<String, Object> map = new HashMap<String, Object>();
