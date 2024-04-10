@@ -41,6 +41,6 @@
     </delete>
     
     <insert id="insert">
-    	insert into tb_boards (title, content, author) values(#{title},#{content}, 'ADMIN')
+    	insert into tb_boards (title, content, author) values(#{title},#{content}, #{author})
     </insert>
 </mapper>

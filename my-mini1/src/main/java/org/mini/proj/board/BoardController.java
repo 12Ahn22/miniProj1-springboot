@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.mini.proj.code.CodeService;
 import org.mini.proj.entity.BoardVO;
+import org.mini.proj.entity.MemberVO;
 import org.mini.proj.paging.PageRequestVO;
 import org.mini.proj.paging.PageResponseVO;
 import org.springframework.stereotype.Controller;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -119,7 +121,9 @@ public class BoardController {
 	}
 
 	@GetMapping("insertForm")
-	public String insertForm() {
+	public String insertForm(Model model, HttpSession session) {
+		MemberVO loginMember = (MemberVO) session.getAttribute("loginMember");
+		model.addAttribute("member",loginMember);
 		return "board/boardInsert";
 	}
 
@@ -127,6 +131,7 @@ public class BoardController {
 	@ResponseBody
 	public Map<String, Object> insert(Model model, @RequestBody BoardVO boardVO) {
 		Map<String, Object> map = new HashMap<String, Object>();
+		log.info("게시물 생성, {}", boardVO.getAuthor());
 		int updated = boardService.insert(boardVO);
 		if(updated == 1) { // 성공
 			map.put("status", 204);
