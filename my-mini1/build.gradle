@@ -28,6 +28,12 @@ dependencies {
    	implementation 'jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api' // JSTL
     implementation 'org.glassfish.web:jakarta.servlet.jsp.jstl' // EL
     
+    // spring security
+	implementation 'org.springframework.security:spring-security-web'
+	implementation 'org.springframework.security:spring-security-config:'
+	implementation 'org.springframework.security:spring-security-taglibs'
+	
+    
     // tomcat 서버 - 부트에는 내장된 톰캣 서버가 있다. embed의 의미(내장 톰캣을 쓰라는 의미)
   	implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'
     
@@ -38,6 +44,8 @@ dependencies {
 	
 	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.springframework.security:spring-security-test'
+	
 	
 	// 마리아 DB 드라이버
 	implementation 'org.mariadb.jdbc:mariadb-java-client:3.3.3'
