@@ -29,9 +29,9 @@ dependencies {
     implementation 'org.glassfish.web:jakarta.servlet.jsp.jstl' // EL
     
     // spring security
-	implementation 'org.springframework.security:spring-security-web'
-	implementation 'org.springframework.security:spring-security-config:'
-	implementation 'org.springframework.security:spring-security-taglibs'
+	implementation 'org.springframework.security:spring-security-web:6.2.3'
+	implementation 'org.springframework.security:spring-security-config:6.2.3'
+	implementation 'org.springframework.security:spring-security-taglibs:6.2.3'
 	
     
     // tomcat 서버 - 부트에는 내장된 톰캣 서버가 있다. embed의 의미(내장 톰캣을 쓰라는 의미)
@@ -44,7 +44,7 @@ dependencies {
 	
 	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	testImplementation 'org.springframework.security:spring-security-test'
+	testImplementation 'org.springframework.security:spring-security-test:6.2.3'
 	
 	
 	// 마리아 DB 드라이버
