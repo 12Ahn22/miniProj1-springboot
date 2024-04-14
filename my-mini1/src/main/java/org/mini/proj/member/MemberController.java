@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import jakarta.servlet.http.HttpSession;
@@ -114,8 +115,12 @@ public class MemberController {
 	}
 	
 	@GetMapping("loginForm")
-	public Object loginForm() {
+	public Object loginForm(Model model,
+			@RequestParam(value = "error", required = false) String error, 
+			@RequestParam(value = "exception", required = false) String exception) {
 		log.info("로그인 화면");
+		model.addAttribute("error", error);
+		model.addAttribute("exception", exception);
 		return "member/login";
 	}
 

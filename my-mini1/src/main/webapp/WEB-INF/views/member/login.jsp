@@ -14,7 +14,7 @@
 				<jsp:include page="/WEB-INF/views/include/layoutHeader.jsp" />
 				<main>
 					<h1>LOGIN</h1>
-					<c:if test="${param.error}">${param.exception}</c:if>
+					<c:if test="${error}">${exception}</c:if>
 					
 					<form id="loginForm" method="post" action="/login">
 						<div>
