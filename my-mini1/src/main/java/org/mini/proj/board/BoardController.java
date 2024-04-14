@@ -8,6 +8,7 @@ import org.mini.proj.entity.BoardVO;
 import org.mini.proj.entity.MemberVO;
 import org.mini.proj.paging.PageRequestVO;
 import org.mini.proj.paging.PageResponseVO;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -121,9 +122,9 @@ public class BoardController {
 	}
 
 	@GetMapping("insertForm")
-	public String insertForm(Model model, HttpSession session) {
-		MemberVO loginMember = (MemberVO) session.getAttribute("loginMember");
-		model.addAttribute("member",loginMember);
+	public String insertForm(Model model, Authentication authentication) {
+		MemberVO memberVO = (MemberVO) authentication.getPrincipal();
+		model.addAttribute("member",memberVO);
 		return "board/boardInsert";
 	}
 
