@@ -30,4 +30,6 @@ public interface MemberMapper {
 	int updateMemberLastLogin(String name);
 
 	void loginCountClear(String name);
+
+	void loginCountInc(MemberVO resultVO);
 }

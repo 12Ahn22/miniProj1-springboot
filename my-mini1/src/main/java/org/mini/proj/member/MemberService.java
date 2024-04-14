@@ -219,7 +219,7 @@ public class MemberService implements UserDetailsService{
 		}
 		log.info("resultVO = {}", resultVO);
 		//로그인 횟수를 카운트 한다
-		// memberMapper.loginCountInc(resultVO);
+		memberMapper.loginCountInc(resultVO);
 		return resultVO;
 	}
 	

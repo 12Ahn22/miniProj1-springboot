@@ -64,6 +64,20 @@
 			,account_locked = 'N'
 		where id = #{id} 
 	</update> 
+	
+	<update id="loginCountInc">
+		update tb_members set 
+			login_count = login_count + 1
+			<choose>
+				<when test="login_count > 5">
+					, account_locked = 'Y'
+				</when>
+				<otherwise>
+					, account_locked = 'N'
+				</otherwise>
+			</choose>
+		where id = #{id} 
+	</update> 
     
     <delete id="delete">
     	delete from tb_members where id = #{id}
