@@ -31,7 +31,10 @@ public class SecurityConfig {
 			.authorizeHttpRequests((authorize) -> authorize
 					.dispatcherTypeMatchers(DispatcherType.FORWARD, DispatcherType.ERROR).permitAll() // 이걸 해야 JSP 페이지를 포워딩 가능
 					.requestMatchers("/","/static/**","/WEB-INF/**","/board/list","/intro", "/member/insertForm", "/member/insert").permitAll()
-					.anyRequest().authenticated());
+					.anyRequest().authenticated())
+			.formLogin(form -> form
+					.loginPage("/member/loginForm")
+					.permitAll());
 		return http.build();
 	}
 	
