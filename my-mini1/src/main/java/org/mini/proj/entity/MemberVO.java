@@ -73,7 +73,7 @@ public class MemberVO implements UserDetails{
 
 		Arrays.stream(roles.split(","))
 			.forEach(role -> collections.add(new SimpleGrantedAuthority("ROLE_" + role.trim())));
-		return null;
+		return collections;
 	}
 
 	@Override
