@@ -9,7 +9,7 @@
 	</a>
 	<nav>
 		<ul class="nav nav-pills">
-			<li class="nav-item"><a class="nav-link" href="/intro.jsp">회사소개</a></li>
+			<li class="nav-item"><a class="nav-link" href="/intro">회사소개</a></li>
 			<c:choose>
 				<c:when test='${empty loginMember}'>
 					<!-- 비로그인 상태일 때 수행할 내용 -->
