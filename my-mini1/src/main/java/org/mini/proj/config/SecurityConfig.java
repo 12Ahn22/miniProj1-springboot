@@ -48,7 +48,7 @@ public class SecurityConfig {
 			.csrf((csrf) -> csrf.disable())
 			.authorizeHttpRequests((authorize) -> authorize
 					.dispatcherTypeMatchers(DispatcherType.FORWARD, DispatcherType.ERROR).permitAll() // 이걸 해야 JSP 페이지를 포워딩 가능
-					.requestMatchers("/","/resources/**","/WEB-INF/**","/board/list","/intro", "/member/insertForm","/member/loginForm**" ,"/member/insert").permitAll()
+					.requestMatchers("/","/resources/**","/WEB-INF/**","/intro", "/member/insertForm","/member/loginForm**" ,"/member/insert").permitAll()
 					.anyRequest().authenticated())
 			.userDetailsService(memberService)
 			.formLogin(form -> form
