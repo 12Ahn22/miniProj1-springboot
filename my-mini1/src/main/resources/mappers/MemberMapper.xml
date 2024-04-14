@@ -19,7 +19,7 @@
     </select>
     
     <select id="checkDuplicateId" resultType="MemberVO">
-    	select id from tb_members where id=#{id} and password = #{password}
+    	select id from tb_members where id = #{id}
     </select>
     
     <select id="getTotalCount">

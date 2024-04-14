@@ -33,12 +33,6 @@ public class SecurityConfig {
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
     }
-    
-    @Bean
-    AuthenticationManager authenticationManager(
-    AuthenticationConfiguration authenticationConfiguration) throws Exception {
-        return authenticationConfiguration.getAuthenticationManager();
-    }
 	 
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -47,7 +41,7 @@ public class SecurityConfig {
 			.csrf((csrf) -> csrf.disable())
 			.authorizeHttpRequests((authorize) -> authorize
 					.dispatcherTypeMatchers(DispatcherType.FORWARD, DispatcherType.ERROR).permitAll() // 이걸 해야 JSP 페이지를 포워딩 가능
-					.requestMatchers("/","/resources/**","/WEB-INF/**","/intro", "/member/insertForm","/member/loginForm**" ,"/member/insert").permitAll()
+					.requestMatchers("/","/resources/**","/WEB-INF/**","/intro", "/member/insertForm","/member/loginForm**" ,"/member/insert", "/member/duplicate").permitAll()
 					.anyRequest().authenticated())
 			.userDetailsService(memberService)
 			.formLogin(form -> form
