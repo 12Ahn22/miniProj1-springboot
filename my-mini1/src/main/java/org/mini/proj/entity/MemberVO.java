@@ -1,5 +1,6 @@
 package org.mini.proj.entity;
 
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -27,6 +28,9 @@ public class MemberVO implements UserDetails{
 	private Gender gender;
 	private List<HobbyVO> hobbies; // 모든 취미
 	private Map<Integer, String> mapHobbies; // 모든 취미
+	private LocalDateTime last_login_time; // 마지막 로그인 시간
+	private String roles; // 권한. ex) "USER, ADMIN, ..." 문자열
+	private String account_locked; // 계정 잠금 여부 Y, N
 	
 	// 자동 로그인을 위한 UUID
 	private String memberUUID; 
