@@ -4,9 +4,12 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+
+import jakarta.servlet.DispatcherType;
 
 @Configuration
 @EnableWebSecurity // 시큐리티 필터 등록
@@ -22,14 +25,13 @@ public class SecurityConfig {
 	
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-//		http
-//			.csrf((csrf)->csrf.disable())
-//			.authorizeHttpRequests((requests) -> requests
-//				.requestMatchers("/", "/intro", "/login", "/loginForm", "/resources/**").permitAll()
-//			);
 
 		http
-			.csrf((csrf) -> csrf.disable());
+			.csrf((csrf) -> csrf.disable())
+			.authorizeHttpRequests((authorize) -> authorize
+					.dispatcherTypeMatchers(DispatcherType.FORWARD, DispatcherType.ERROR).permitAll() // 이걸 해야 JSP 페이지를 포워딩 가능
+					.requestMatchers("/","/static/**","/WEB-INF/**","/board/list","/intro", "/member/insertForm", "/member/insert").permitAll()
+					.anyRequest().authenticated());
 		return http.build();
 	}
 	
