@@ -48,6 +48,12 @@
 		where id = #{id}
     </update>
     
+    <update id="updateMemberLastLogin">
+		update tb_members set 
+			last_login_time = now()
+		where id = #{id}  
+	</update>
+    
     <delete id="delete">
     	delete from tb_members where id = #{id}
     </delete>
