@@ -3,7 +3,6 @@ package org.mini.proj.handler;
 import java.io.IOException;
 
 import org.mini.proj.member.mapper.MemberMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
@@ -11,13 +10,14 @@ import org.springframework.stereotype.Component;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.RequiredArgsConstructor;
 
 
 @Component
+@RequiredArgsConstructor
 public class AuthSucessHandler extends SimpleUrlAuthenticationSuccessHandler {
 	
-	@Autowired
-	private MemberMapper memberMapper;
+	private final MemberMapper memberMapper;
 	
 	@Override
     public void onAuthenticationSuccess(

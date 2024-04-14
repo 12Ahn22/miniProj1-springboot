@@ -3,11 +3,11 @@ package org.mini.proj.config;
 import org.mini.proj.handler.AuthFailureHandler;
 import org.mini.proj.handler.AuthSucessHandler;
 import org.mini.proj.member.MemberService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -16,19 +16,18 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import jakarta.servlet.DispatcherType;
+import lombok.RequiredArgsConstructor;
 
 @Configuration
 @EnableWebSecurity // 시큐리티 필터 등록
-// @EnableGlobalMethodSecurity(prePostEnabled = true) 
+@EnableMethodSecurity(prePostEnabled = true) 
 // 특정 페이지에 특정 권한이 있는 유저만 접근을 허용할 경우 권한 및 
 // 인증을 미리 체크하겠다는 설정을 활성화한다.
+@RequiredArgsConstructor
 public class SecurityConfig {
-	@Autowired
-	private MemberService memberService;
-	@Autowired
-	private AuthSucessHandler authSucessHandler;
-	@Autowired
-	private AuthFailureHandler authFailureHandler;
+	private final MemberService memberService;
+	private final AuthSucessHandler authSucessHandler;
+	private final AuthFailureHandler authFailureHandler;
 	
     @Bean
     public PasswordEncoder passwordEncoder(){
