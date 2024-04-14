@@ -73,7 +73,7 @@ public class BoardController {
 			map.put("board", board);
 		} else {
 			map.put("status", 404);
-			map.put("statusMessage", "게시글 삭제에 실패하였습니다");
+			map.put("statusMessage", "게시글 읽기에 실패하였습니다");
 		}
 		
 		return map;
