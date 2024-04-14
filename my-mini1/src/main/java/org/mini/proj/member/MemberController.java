@@ -9,6 +9,7 @@ import org.mini.proj.entity.HobbyVO;
 import org.mini.proj.entity.MemberVO;
 import org.mini.proj.paging.PageRequestVO;
 import org.mini.proj.paging.PageResponseVO;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -154,12 +155,12 @@ public class MemberController {
 //		return "redirect:/";
 //	}
 
-	@RequestMapping("profile")
-	public String profile(HttpSession session, Model model) {
+	@GetMapping("profile")
+	public String profile(Authentication authentication, Model model) {
 		log.info("PROFILE");
-		MemberVO sessionMember = (MemberVO) session.getAttribute("loginMember");
+		MemberVO memberVO = (MemberVO) authentication.getPrincipal();
 		
-		MemberVO viewMember = memberService.view(sessionMember);
+		MemberVO viewMember = memberService.view(memberVO);
 		model.addAttribute("member", viewMember);
 		return "member/memberProfile";
 	}

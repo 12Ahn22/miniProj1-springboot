@@ -34,7 +34,7 @@
     </select>
     
     <select id="login" resultType="MemberVO">
-		select id, name, address, phone, gender, password from tb_members where id = #{id}
+		select id, name, password, address, phone, gender, password from tb_members where id = #{id}
     </select>
     
     <select id="getMemberHobbies" resultType="HobbyVO">
