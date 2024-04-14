@@ -29,7 +29,7 @@ public class AuthSucessHandler extends SimpleUrlAuthenticationSuccessHandler {
 		//로그인 한 마지막 시간 수정 
 		memberMapper.updateMemberLastLogin(authentication.getName());
 //		//로그인 실패시 카운트를 초기화 한다 
-//		memberMapper.loginCountClear(authentication.getName());
+		memberMapper.loginCountClear(authentication.getName());
 
 		System.out.println("authentication ->" + authentication);
 		

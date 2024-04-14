@@ -30,11 +30,15 @@
     </select>
     
     <select id="view" resultType="MemberVO">
-		select id, name, address, phone, gender from tb_members where id = #{id}
+		select 
+		id, password, name, address, phone, gender, last_login_time, roles, account_locked, login_count
+		from tb_members where id = #{id}
     </select>
     
     <select id="login" resultType="MemberVO">
-		select id, name, password, address, phone, gender, password from tb_members where id = #{id}
+		select 
+		id, password, name, address, phone, gender, last_login_time, roles, account_locked, login_count
+		from tb_members where id = #{id}
     </select>
     
     <select id="getMemberHobbies" resultType="HobbyVO">
@@ -53,6 +57,13 @@
 			last_login_time = now()
 		where id = #{id}  
 	</update>
+	
+	<update id="loginCountClear">
+		update tb_members set 
+			 login_count = 0 
+			,account_locked = 'N'
+		where id = #{id} 
+	</update> 
     
     <delete id="delete">
     	delete from tb_members where id = #{id}

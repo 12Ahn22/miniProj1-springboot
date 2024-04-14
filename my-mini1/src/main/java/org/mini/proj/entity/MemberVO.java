@@ -1,11 +1,14 @@
 package org.mini.proj.entity;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import lombok.AllArgsConstructor;
@@ -31,6 +34,7 @@ public class MemberVO implements UserDetails{
 	private LocalDateTime last_login_time; // 마지막 로그인 시간
 	private String roles; // 권한. ex) "USER, ADMIN, ..." 문자열
 	private String account_locked; // 계정 잠금 여부 Y, N
+	private int login_count; // 로그인 횟수
 	
 	// 자동 로그인을 위한 UUID
 	private String memberUUID; 
@@ -65,13 +69,15 @@ public class MemberVO implements UserDetails{
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		// TODO Auto-generated method stub
+		Collection<GrantedAuthority> collections = new ArrayList<GrantedAuthority>();
+
+		Arrays.stream(roles.split(","))
+			.forEach(role -> collections.add(new SimpleGrantedAuthority("ROLE_" + role.trim())));
 		return null;
 	}
 
 	@Override
 	public String getUsername() {
-		// TODO Auto-generated method stub
 		return id;
 	}
 	
@@ -87,7 +93,7 @@ public class MemberVO implements UserDetails{
 
 	@Override
 	public boolean isAccountNonLocked() {
-		return true;
+		return "N".equalsIgnoreCase(account_locked);
 	}
 
 	@Override

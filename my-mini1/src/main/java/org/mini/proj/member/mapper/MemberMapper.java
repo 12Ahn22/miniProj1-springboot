@@ -28,4 +28,6 @@ public interface MemberMapper {
 	MemberVO login(MemberVO member);
 
 	int updateMemberLastLogin(String name);
+
+	void loginCountClear(String name);
 }
