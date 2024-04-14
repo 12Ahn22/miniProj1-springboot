@@ -14,10 +14,12 @@
 				<jsp:include page="/WEB-INF/views/include/layoutHeader.jsp" />
 				<main>
 					<h1>LOGIN</h1>
-					<form id="loginForm">
+					<c:if test="${param.error}">${param.exception}</c:if>
+					
+					<form id="loginForm" method="post" action="/login">
 						<div>
 							<label for="id">아이디:</label>
-							<input type="text" id="id" name="id" required>
+							<input type="text" id="email" name="email" required>
 						</div>
 						<div>
 							<label for="password">비밀번호:</label>
@@ -33,27 +35,5 @@
 				</main>
 			</div>
 			<script type="text/javascript" src="<c:url value='/resources/js/common.js'/>"></script>
-			<script>
-				const loginForm = document.getElementById("loginForm");
-				loginForm.addEventListener("submit", (e) => {
-					e.preventDefault();
-					console.log(formToSerialize("loginForm"));
-					fetch("login", {
-						method: "POST",
-						body: formToSerialize("loginForm"),
-						headers: { "Content-type": "application/json; charset=utf-8" }
-					}).then((res) => res.json())
-						.then((data) => {
-							if (data.status === 204) {
-								alert("로그인에 성공했습니다.");
-								// 페이지 리다이렉트
-								location = "/";
-							} else {
-								alert(data.statusMessage);
-							}
-						});
-				});
-			</script>
 		</body>
-
 		</html>

@@ -118,41 +118,41 @@ public class MemberController {
 		return "member/login";
 	}
 
-	@PostMapping("login")
-	@ResponseBody
-	public Map<String, Object> login(@RequestBody MemberVO member, HttpSession session) {
-		log.info("LOGIN");
-		Map<String, Object> map = new HashMap<String, Object>();
+//	@PostMapping("login")
+//	@ResponseBody
+//	public Map<String, Object> login(@RequestBody MemberVO member, HttpSession session) {
+//		log.info("LOGIN");
+//		Map<String, Object> map = new HashMap<String, Object>();
+//
+//		// 로그인 처리
+//		MemberVO loginVO = memberService.login(member);
+//		
+//		if(loginVO != null) {
+//			// 로그인 성공
+//			session.setAttribute("loginMember", loginVO);
+//			session.setMaxInactiveInterval(30 * 60 * 1000); // 30분
+//			map.put("status", 204);
+//		}else {
+//			// 로그인 실패
+//			map.put("status", 404);
+//			map.put("statusMessage", "아이디 혹은 비밀번호가 잘못되었습니다.");
+//		}
+//		return map;
+//	}
 
-		// 로그인 처리
-		MemberVO loginVO = memberService.login(member);
-		
-		if(loginVO != null) {
-			// 로그인 성공
-			session.setAttribute("loginMember", loginVO);
-			session.setMaxInactiveInterval(30 * 60 * 1000); // 30분
-			map.put("status", 204);
-		}else {
-			// 로그인 실패
-			map.put("status", 404);
-			map.put("statusMessage", "아이디 혹은 비밀번호가 잘못되었습니다.");
-		}
-		return map;
-	}
-
-	@GetMapping("logout")
-	public String logout(HttpSession session) {
-		// 세션에서 로그인 정보 얻기
-		MemberVO loginMember = (MemberVO) session.getAttribute("loginMember");
-//		loginMember.setMemberUUID("");
-//		memberService.updateUUID(loginMember);
-		// 세션 삭제
-		session.removeAttribute("loginMember");
-		session.invalidate();
-
-		// main 화면으로 리다이렉트 하도록 응답
-		return "redirect:/";
-	}
+//	@GetMapping("logout")
+//	public String logout(HttpSession session) {
+//		// 세션에서 로그인 정보 얻기
+//		MemberVO loginMember = (MemberVO) session.getAttribute("loginMember");
+////		loginMember.setMemberUUID("");
+////		memberService.updateUUID(loginMember);
+//		// 세션 삭제
+//		session.removeAttribute("loginMember");
+//		session.invalidate();
+//
+//		// main 화면으로 리다이렉트 하도록 응답
+//		return "redirect:/";
+//	}
 
 	@RequestMapping("profile")
 	public String profile(HttpSession session, Model model) {

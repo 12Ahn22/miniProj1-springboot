@@ -1,7 +1,11 @@
 package org.mini.proj.entity;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,7 +18,7 @@ import lombok.Setter;
 @Setter
 @Getter
 @Builder
-public class MemberVO {
+public class MemberVO implements UserDetails{
 	private String id;
 	private String name;
 	private String password;
@@ -53,5 +57,42 @@ public class MemberVO {
 	
 	public boolean isEqualsPwd(String pwd) {
 		return this.password.equals(pwd);
+	}
+
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getUsername() {
+		// TODO Auto-generated method stub
+		return id;
+	}
+	
+	@Override
+	public String getPassword() {
+		return password;
+	}
+
+	@Override
+	public boolean isAccountNonExpired() {
+		return true;
+	}
+
+	@Override
+	public boolean isAccountNonLocked() {
+		return true;
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+		return true;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		return true;
 	}
 }

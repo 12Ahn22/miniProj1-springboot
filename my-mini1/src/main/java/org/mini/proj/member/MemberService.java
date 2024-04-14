@@ -1,14 +1,9 @@
 package org.mini.proj.member;
 
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
 
-import org.mini.proj.entity.BoardVO;
 import org.mini.proj.entity.HobbyVO;
 import org.mini.proj.entity.MemberHobbyVO;
 import org.mini.proj.entity.MemberVO;
@@ -17,6 +12,10 @@ import org.mini.proj.member.mapper.MemberMapper;
 import org.mini.proj.memberhobby.mapper.MemberHobbyMapper;
 import org.mini.proj.paging.PageRequestVO;
 import org.mini.proj.paging.PageResponseVO;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
@@ -26,7 +25,7 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 @Slf4j
 @RequiredArgsConstructor
-public class MemberService {
+public class MemberService implements UserDetailsService{
 	private final MemberMapper memberMapper;
 	private final HobbyMapper hobbyMapper;
 	private final MemberHobbyMapper memberHobbyMapper;
@@ -207,5 +206,26 @@ public class MemberService {
 //
 	public MemberVO checkDuplicateId(MemberVO member) {
 		return memberMapper.checkDuplicateId(member);
+	}
+
+	@Override
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		log.info("#### loadUserByUsername ####");
+		log.info("LOAD USER BY USERNAME: {}", username);
+		MemberVO resultVO = memberMapper.login(MemberVO.builder().id(username).build());
+		if(resultVO == null) {
+			log.info("사용자가 존재하지 않습니다.");
+			throw new UsernameNotFoundException(username + " 사용자가 존재하지 않습니다");
+		}
+		log.info("resultVO = {}", resultVO);
+		//로그인 횟수를 카운트 한다
+		// memberMapper.loginCountInc(resultVO);
+		return resultVO;
+	}
+	
+	public static void main(String [] args) {
+		BCryptPasswordEncoder bcryptPasswordEncoder = new BCryptPasswordEncoder();
+		System.out.println(bcryptPasswordEncoder.encode("1004"));
+		System.out.println(bcryptPasswordEncoder.encode("1004"));
 	}
 }
