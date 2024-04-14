@@ -38,7 +38,7 @@ public class BoardService {
 	}
 	
 	public BoardVO view(BoardVO boardVO) {
-		// boardMapper.increaseViewCount(boardVO.getBno());
+		boardMapper.increaseViewCount(boardVO.getBno());
 		return boardMapper.view(boardVO);
 	}
 

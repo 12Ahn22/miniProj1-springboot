@@ -36,6 +36,10 @@
 		update tb_boards set title = #{title}, content = #{content} where bno = #{bno}
     </update>
     
+    <update id="increaseViewCount">
+		update tb_boards set view_count = view_count + 1 where bno = #{bno}
+    </update>
+    
     <delete id="delete">
     	delete from tb_boards where bno = #{bno}
     </delete>

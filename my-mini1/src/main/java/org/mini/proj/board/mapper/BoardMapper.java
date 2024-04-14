@@ -20,4 +20,6 @@ public interface BoardMapper {
 
 	int getTotalCount(PageRequestVO pageRequestVO);
 
+	int increaseViewCount(Integer bno);
+
 }
